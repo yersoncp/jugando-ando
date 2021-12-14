@@ -1,12 +1,18 @@
-import firebase from 'firebase'
-import { uuid } from 'uuidv4';
+import firebase from '../../app/firebase'
+import { v4 } from 'uuid';
+import { IUser } from '../../app/interfaces';
 
 const CreateSort = () => {
-    const handleCreateSort = () => {
-        const key = uuid();
+    const user: IUser = {
+        name: 'Yerson',
+        email: 'yerson.rc@gmail.com',
+    }
+    const handleCreateSort = (e: any) => {
+        e.preventDefault();
+        const key = v4();
         firebase.database().ref(`events/${key}`).set({
-            emailList: [],
-            wishList: []
+            emailList: JSON.stringify([user, user, user]),
+            wishList: '[]'
         })
     }
     return <>

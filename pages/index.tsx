@@ -1,21 +1,8 @@
-import firebase from '../app/firebase'
 import type { NextPage } from 'next'
 import Head from 'next/head'
+import CreateSort from '../components/CreateSort/CreateSort'
 
 const Home: NextPage = () => {
-
-
-  // firebase.database().ref('users/' + 800).set({
-  //   username: 'name',
-  //   email: 'email',
-  //   profile_picture : 'imageUrl'
-  // });
-
-  let starCountRef = firebase.database().ref('users/' + 900);
-  starCountRef.on('value', (snapshot) => {
-    const data = snapshot.val();
-    console.log(data)
-  });
 
   return (
     <div>
@@ -24,6 +11,8 @@ const Home: NextPage = () => {
         <meta name="description" content="" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
+      <CreateSort />
     </div>
   )
 }
