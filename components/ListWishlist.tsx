@@ -7,12 +7,19 @@ type IProps = {
 
 const ListWishlist: FC<IProps> = ({ whislist }) => {
   return <>
-    {
-      whislist.map((w, i) => <div className="whislist-item" key={w.id}>
-        <span className="whislist-item-name">{w.name}</span>
-        <span className="whislist-item-name">{w.description}</span>
-      </div>)
-    }
+    <div className="list-wishlist">
+      <div className="list-wishlist__title">
+        Cosas que quiero que me regalen
+      </div>
+      <ul>
+        {
+          whislist.map((w, i) => <li className="list-wishlist__item" key={w.id}>
+            <span className="whislist-item-name">{w.name}</span>
+            <span className="whislist-item-name">{w.description}</span>
+          </li>)
+        }
+      </ul>
+    </div>
   </>
 }
 export default ListWishlist
