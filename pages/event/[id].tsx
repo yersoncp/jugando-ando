@@ -6,6 +6,8 @@ import { IUser, IWishList } from '../../app/interfaces'
 import CreateWhishlist from '../../components/CreateWishlist'
 import ListUser from '../../components/ListUser'
 import ListWishlist from '../../components/ListWishlist'
+import SelectedUser from '../../components/SelectedUser'
+import useStoreState from '../../app/hooks/use-store-state'
 
 export async function getStaticPaths() {
   return {
@@ -22,6 +24,7 @@ export async function getStaticProps({ params }: GetStaticPropsContext<{ id: str
 }
 
 const Id = ({ id }: InferGetStaticPropsType<typeof getStaticProps>) => {
+  const [user, setUser] = useStoreState<IUser>('user', null)
   const [whislist, setWhislist] = useState<IWishList[]>([])
   const [emailList, setEmailList] = useState<IUser[]>([])
 
@@ -43,6 +46,12 @@ const Id = ({ id }: InferGetStaticPropsType<typeof getStaticProps>) => {
     });
   }, [id])
 
+  const selectUser = (email: string) => {
+    const user = emailList.find(user => user.email === email)
+    if (!user) return
+    setUser(user)
+  }
+
   return (
     <div>
       <Head>
@@ -52,8 +61,16 @@ const Id = ({ id }: InferGetStaticPropsType<typeof getStaticProps>) => {
       </Head>
       <div className="intro">
         <ListUser users={emailList} />
-        <CreateWhishlist id={id} />
-        <ListWishlist whislist={whislist} />
+        {
+          user ? (
+            <>
+              <CreateWhishlist id={id} />
+              <ListWishlist whislist={whislist} />
+            </>
+          ) : (
+            <SelectedUser onClick={selectUser} />
+          )
+        }
       </div>
     </div>
   )
