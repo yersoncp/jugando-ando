@@ -1,3 +1,7 @@
+:root {
+  --color-primary: #342e86;
+}
+
 html,
 body {
   padding: 0;
@@ -5,6 +9,7 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   font-size: 15px;
+  line-height: 24px;
 }
 
 a {
@@ -33,9 +38,58 @@ a {
   font-weight: 600;
 }
 
+.button {
+  background: var(--color-primary);
+  color: #fff;
+  border: none;
+  padding: 16px 24px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.link {
+  background: #f3f4f5;
+  color: var(--color-primary);
+  border: none;
+  padding: 16px 24px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+.link:hover {
+  background: #eee;
+}
+
+.link.red {
+  color: red;
+}
+
+.mb-20 {
+  margin-bottom: 20px;
+}
+
+.mb-30 {
+  margin-bottom: 30px;
+}
+
+.control {
+  border: 1px solid #ccc;
+  padding: 16px 24px;
+  border-radius: 4px;
+  outline-style: none;
+  margin-bottom: 10px;
+}
+.control.error {
+  border: 1px solid red;
+}
+
+.items > * {
+  margin-right: 10px;
+}
+
 /* Header Styles */
 .header {
-  background: #342e86;
+  background: var(--color-primary);
   padding: 2rem 0;
 }
 
@@ -44,4 +98,22 @@ a {
   padding: .6rem 0;
   color: #fff;
   font-weight: normal;
+}
+
+
+.success-sort {
+  border-radius: 6px;
+  border: 1px solid #94d194;
+  background: #f1fdf4;
+  margin: 2rem 0;
+  padding: 2rem;
+}
+
+
+.success-sort svg {
+  width: 32px;
+}
+
+.success-sort input {
+  width: 100%;
 }
