@@ -32,7 +32,7 @@ const CreateWhishlist: FC<IProps> = ({ id, user }) => {
         <input
           {...register("description", { required: true })}
           className={errors?.description ? "control control-wishlist error" : "control control-wishlist"}
-          placeholder="¿Qué quieres que te regalen?"
+          placeholder="¿Qué te gustaría que te regalen?"
           />
         <button className="button">Agregar</button>
       </div>

@@ -23,6 +23,7 @@ const CreateSort = () => {
     register,
     control,
     handleSubmit,
+    reset,
     formState: { errors }
   } = useForm<FormValues>({
     defaultValues: {
@@ -63,6 +64,7 @@ const CreateSort = () => {
         })
       )
     }
+    reset();
     setIsSuccess(true);
     setIsLoading(false);
     setKeySuccess(keyEvent);
@@ -122,7 +124,6 @@ const CreateSort = () => {
     </form>
 
     {isLoading && <div className="loading">Procesando....</div>}
-
     {isSuccess && <SuccessSort id={keySuccess} />}
   </>
 }
