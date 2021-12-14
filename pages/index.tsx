@@ -12,7 +12,9 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+      <p className="heading1">Juega amigos secretos</p>
       <CreateSort />
+
     </div>
   )
 }

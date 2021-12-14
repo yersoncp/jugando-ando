@@ -20,6 +20,7 @@ const CreateSort = () => {
     })
   }
   return <>
+    <p>Ingresa los correos de los participantes para </p>
     <form onSubmit={handleSubmit(onSubmit)}>
       <input {...register("name")} placeholder="First name" />
       <input {...register("email")} type="email" placeholder="First name" />
