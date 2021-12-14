@@ -132,6 +132,8 @@ a {
   border: none;
   padding: 16px 24px;
   border-radius: 4px;
+  display: inline-block;
+  margin-bottom: 10px;
 }
 
 .control-wishlist {
