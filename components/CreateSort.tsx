@@ -3,6 +3,9 @@ import { v4 } from 'uuid';
 import { useFieldArray, useForm } from 'react-hook-form';
 import SuccessSort from './SuccessSort';
 import { useState } from 'react';
+import { sortFriends } from '../app/utils/utils';
+import { sendEmail } from '../app/email-send/email-send.service';
+import { IUser } from '../app/interfaces';
 
 type FormValues = {
   user: {
@@ -13,6 +16,7 @@ type FormValues = {
 
 const CreateSort = () => {
   const [isSuccess, setIsSuccess] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [keySuccess, setKeySuccess] = useState('');
   const keyEvent = v4();
   const {
@@ -31,8 +35,9 @@ const CreateSort = () => {
     control
   });
 
-  const onSubmit = (data: FormValues) => {
-    console.log(keyEvent);
+
+  const onSubmit = async (data: FormValues) => {
+    setIsLoading(true);
     data.user.forEach(user => {
       const keyUser = v4();
       firebase.database().ref(`events/${keyEvent}/emailList/${keyUser}`).set({
@@ -40,7 +45,26 @@ const CreateSort = () => {
         email: user.email
       })
     })
+    
+    const amigos = sortFriends(data.user as IUser[]);
+    if (amigos) {
+      await Promise.all(
+        amigos.map(async (amigo) => {
+          await sendEmail({
+            to: amigo[0]?.email as string,
+            subject: 'Tu amigo secreto es!! Tan tannnn',
+            template: 'amigo-secreto-email',
+            tags: ['test'],
+            vars: {
+              name: amigo[1]?.name,
+              email: amigo[1]?.email
+            }
+          })
+        })
+      )
+    }
     setIsSuccess(true);
+    setIsLoading(false);
     setKeySuccess(keyEvent);
   }
 
@@ -96,6 +120,8 @@ const CreateSort = () => {
         <input className="button" type="submit" value="Generar sorteo" />
       </div>
     </form>
+
+    {isLoading && <div className="loading">Procesando....</div>}
 
     {isSuccess && <SuccessSort id={keySuccess} />}
   </>

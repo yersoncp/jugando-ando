@@ -8,7 +8,6 @@ type IProps = {
 
 const ListWishlist: FC<IProps> = ({ whislist }) => {
   const wishlistGroup = groupByKey(whislist, 'name')
-  console.log(1, wishlistGroup)
   return <>
     <div className="list-wishlist">
       <div className="list-wishlist__title">

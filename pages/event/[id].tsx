@@ -7,7 +7,7 @@ import CreateWhishlist from '../../components/CreateWishlist'
 import ListUser from '../../components/ListUser'
 import ListWishlist from '../../components/ListWishlist'
 import SelectedUser from '../../components/SelectedUser'
-import useStoreState from '../../app/hooks/use-store-state'
+import { sortFriends } from '../../app/utils/utils'
 
 export async function getStaticPaths() {
   return {
