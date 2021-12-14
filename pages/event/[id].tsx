@@ -24,7 +24,7 @@ export async function getStaticProps({ params }: GetStaticPropsContext<{ id: str
 }
 
 const Id = ({ id }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const [user, setUser] = useStoreState<IUser>('user', null)
+  const [user, setUser] = useState<IUser | null>(null)
   const [whislist, setWhislist] = useState<IWishList[]>([])
   const [emailList, setEmailList] = useState<IUser[]>([])
 
@@ -47,9 +47,9 @@ const Id = ({ id }: InferGetStaticPropsType<typeof getStaticProps>) => {
   }, [id])
 
   const selectUser = (email: string) => {
-    const user = emailList.find(user => user.email === email)
-    if (!user) return
-    setUser(user)
+    const userExist = emailList.find(user => user.email === email)
+    if (!userExist) return
+    setUser(userExist)
   }
 
   return (
@@ -64,7 +64,8 @@ const Id = ({ id }: InferGetStaticPropsType<typeof getStaticProps>) => {
         {
           user ? (
             <>
-              <CreateWhishlist id={id} />
+              <h2>Hola {user.name},</h2>
+              <CreateWhishlist user={user} id={id} />
               <ListWishlist whislist={whislist} />
             </>
           ) : (

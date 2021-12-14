@@ -2,23 +2,25 @@ import firebase from '../app/firebase'
 import { v4 } from 'uuid';
 import { useForm } from 'react-hook-form';
 import { FC } from 'react';
+import { IUser } from '../app/interfaces';
 
 type IProps = {
   id: string,
+  user: IUser
 }
 
 type Inputs = {
   description: string,
 };
 
-const CreateWhishlist: FC<IProps> = ({ id }) => {
-  const { register, handleSubmit, setValue } = useForm<Inputs>();
+const CreateWhishlist: FC<IProps> = ({ id, user }) => {
+  const { register, handleSubmit, setValue, formState: { errors } } = useForm<Inputs>();
 
   const onSubmit = (data: Inputs) => {
     const key = v4();
     firebase.database().ref(`events/${id}/wishList/${key}`).set({
-      user: 'yerson',
-      email: 'yerson.rc@gmail.com',
+      name: user.name,
+      email: user.email,
       description: data.description
     }).finally(() => {
       setValue('description', '');
@@ -27,7 +29,11 @@ const CreateWhishlist: FC<IProps> = ({ id }) => {
   return <>
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="items">
-        <input className="control control-wishlist" {...register("description")} placeholder="¿Qué quieres que te regalen?" />
+        <input
+          {...register("description", { required: true })}
+          className={errors?.description ? "control control-wishlist error" : "control control-wishlist"}
+          placeholder="¿Qué quieres que te regalen?"
+          />
         <button className="button">Agregar</button>
       </div>
     </form>

@@ -1,5 +1,3 @@
-import firebase from '../app/firebase'
-import { v4 } from 'uuid';
 import { useForm } from 'react-hook-form';
 import { FC } from 'react';
 
@@ -16,11 +14,12 @@ const SelectedUser: FC<IProps> = ({ onClick }) => {
 
   const onSubmit = (data: Inputs) => {
     onClick(data.email);
+    setValue('email', '');
   }
   return <>
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="items">
-        <input className="control control-wishlist" {...register("email")} placeholder="¿Cuál es tu mail?" />
+        <input className="control control-wishlist" {...register("email")} placeholder="¿Cuál es tu correo electrónico?" />
         <button className="button">Aceptar</button>
       </div>
     </form>

@@ -78,6 +78,7 @@ a {
   border-radius: 4px;
   outline-style: none;
   margin-bottom: 10px;
+  font-size: .96rem;
 }
 .control.error {
   border: 1px solid red;
@@ -127,26 +128,38 @@ a {
 }
 
 .control-wishlist {
-  min-width: 360px;
+  min-width: 340px;
 }
 
 .list-wishlist {
-  background: #fff8ee;
-  border-radius: 12px;
-  padding: 2rem 2rem 2rem 3rem;
   margin: 2rem 0;
 }
 
-.list-wishlist ul {
-  padding-left: 1.5rem;
-}
-
 .list-wishlist__title {
+  margin-bottom: 2rem;
   text-transform: uppercase;
   color: rgb(184, 107, 45);
+  font-size: 1.2rem;
+  text-align: center;
 }
 
-.list-wishlist li {
+.list-wishlist__container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+}
+
+.list-wishlist__group {
+  background: #fff8ee;
+  border-radius: 12px;
+  padding: 2rem 2rem 2rem 3rem;
+}
+
+.list-wishlist__group-list {
+  padding-left: 1rem;
+}
+
+.list-wishlist__group-list li {
   list-style-type: decimal;
   font-weight: 500;
   padding: .5rem 0;
