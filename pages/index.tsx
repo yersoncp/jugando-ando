@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import CreateSort from '../components/CreateSort/CreateSort'
+import CreateSort from '../components/CreateSort'
 
 const Home: NextPage = () => {
 

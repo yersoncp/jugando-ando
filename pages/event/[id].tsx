@@ -1,8 +1,11 @@
 import firebase from '../../app/firebase'
-import type { GetStaticPropsContext, InferGetStaticPropsType, NextPage } from 'next'
+import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import Head from 'next/head'
 import { useEffect, useState } from 'react'
-import { IUser, IWhisList } from '../../app/interfaces'
+import { IUser, IWishList } from '../../app/interfaces'
+import CreateWhishlist from '../../components/CreateWishlist'
+import ListUser from '../../components/ListUser'
+import ListWishlist from '../../components/ListWishlist'
 
 export async function getStaticPaths() {
   return {
@@ -19,18 +22,24 @@ export async function getStaticProps({ params }: GetStaticPropsContext<{ id: str
 }
 
 const Id = ({ id }: InferGetStaticPropsType<typeof getStaticProps>) => {
-
-  const [whislist, setWhislist] = useState<IWhisList[] | null>(null)
-  const [emailList, setEmailList] = useState<IUser[] | null>(null)
+  const [whislist, setWhislist] = useState<IWishList[]>([])
+  const [emailList, setEmailList] = useState<IUser[]>([])
 
   useEffect(() => {
-    console.log('useEffect :: ', `events/${id}`)
     let starCountRef = firebase.database().ref(`events/${id}`);
     starCountRef.on('value', (snapshot) => {
-      const data = snapshot.val();
-      console.log('useEffect', data)
-      setWhislist(data?.wishList)
-      setEmailList(data?.emailList)
+      if (!snapshot.val()) return
+      const { emailList: emailListData, wishList: wishListData } = snapshot.val();
+      const wishListParse = wishListData ? Object.keys(wishListData).map(key => ({
+        ...wishListData[key],
+        id: key
+      })) : []
+      const emailListParse = Object.keys(emailListData).map(key => ({
+        ...emailListData[key],
+        id: key
+      }))
+      setWhislist(wishListParse)
+      setEmailList(emailListParse)
     });
   }, [id])
 
@@ -41,7 +50,11 @@ const Id = ({ id }: InferGetStaticPropsType<typeof getStaticProps>) => {
         <meta name="description" content="" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <h2>Detalle event</h2>
+      <div className="intro">
+        <ListUser users={emailList} />
+        <CreateWhishlist id={id} />
+        <ListWishlist whislist={whislist} />
+      </div>
     </div>
   )
 }

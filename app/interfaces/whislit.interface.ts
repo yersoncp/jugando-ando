@@ -1,6 +1,6 @@
-import { IUser } from ".";
-
-export interface IWhisList {
-    user: IUser;
-    description: string;
+export interface IWishList {
+  id: string;
+  name: string;
+  email: string;
+  description: string;
 }
