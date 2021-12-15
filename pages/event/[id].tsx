@@ -63,7 +63,7 @@ const Id = ({ id }: InferGetStaticPropsType<typeof getStaticProps>) => {
         {
           user ? (
             <>
-              <h2>Hola {user.name},</h2>
+              <h2>Hola {user.name} 👋</h2>
               <CreateWhishlist user={user} id={id} />
               <ListWishlist whislist={whislist} />
             </>
