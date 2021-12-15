@@ -173,3 +173,8 @@ a {
   font-weight: 500;
   padding: .5rem 0;
 }
+
+.footer {
+  text-align: center;
+  padding: 3rem 0;
+}
