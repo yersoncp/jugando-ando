@@ -46,6 +46,10 @@ a {
   border-radius: 4px;
   cursor: pointer;
 }
+.button[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
 
 .link {
   background: #f3f4f5;
