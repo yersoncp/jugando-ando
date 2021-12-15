@@ -1,11 +1,11 @@
 import { IUser } from "../interfaces";
 
 /**
-   * Agrupar array según key
-   *
-   * @param arr Array list
-   * @param key Array key
-   */
+ * Agrupar array según key
+ *
+ * @param arr Array list
+ * @param key Array key
+ */
 export const groupByKey = (arr: any, key: string) => {
   return arr.reduce((rv: any, x: any) => {
     (rv[x[key]] = rv[x[key]] || []).push(x);
@@ -13,10 +13,7 @@ export const groupByKey = (arr: any, key: string) => {
   }, {});
 }
 
-
-const removeItem = (arr: any[], index: number) => {
-  arr.splice(index, 1);
-}
+const removeItem = (arr: any[], index: number) => arr.splice(index, 1)
 
 const getRandomInt = (min: number, max: number): number => {
   min = Math.ceil(min);
@@ -24,57 +21,20 @@ const getRandomInt = (min: number, max: number): number => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-export function sortFriends(amigos: IUser[]) {
-  let amigosSorteados = []
-  
-  // amigos 1
-  let amigoCurrent = amigos.shift()
-  let primerAmigo = amigoCurrent;
-  let indexToGift = getRandomInt(0, amigos.length - 1)
-  amigosSorteados.push([amigoCurrent, amigos[indexToGift] ? amigos[indexToGift] : primerAmigo])
+export const sortFriends = (users: IUser[]) => {
+  // Resultado
+  let sortedFriends = []
 
-  // amigos 2
-  amigoCurrent = amigos[indexToGift]
-  removeItem(amigos, indexToGift)
-  indexToGift = getRandomInt(0, amigos.length - 1)
-  amigosSorteados.push([amigoCurrent, amigos[indexToGift] ? amigos[indexToGift] : primerAmigo])
-  if (amigos.length === 0) return amigosSorteados
+  // Seleccionar un usuario random para iniciar
+  let index = getRandomInt(0, users.length - 1)
+  const firstFriend = users[index];
 
-
-  // amigos 3
-  amigoCurrent = amigos[indexToGift]
-  removeItem(amigos, indexToGift)
-  indexToGift = getRandomInt(0, amigos.length - 1)
-  amigosSorteados.push([amigoCurrent, amigos[indexToGift] ? amigos[indexToGift] : primerAmigo])
-  if (amigos.length === 0) return amigosSorteados
-
-  amigoCurrent = amigos[indexToGift]
-  removeItem(amigos, indexToGift)
-  indexToGift = getRandomInt(0, amigos.length - 1)
-  amigosSorteados.push([amigoCurrent, amigos[indexToGift] ? amigos[indexToGift] : primerAmigo])
-  if (amigos.length === 0) return amigosSorteados
-
-  amigoCurrent = amigos[indexToGift]
-  removeItem(amigos, indexToGift)
-  indexToGift = getRandomInt(0, amigos.length - 1)
-  amigosSorteados.push([amigoCurrent, amigos[indexToGift] ? amigos[indexToGift] : primerAmigo])
-  if (amigos.length === 0) return amigosSorteados
-
-  amigoCurrent = amigos[indexToGift]
-  removeItem(amigos, indexToGift)
-  indexToGift = getRandomInt(0, amigos.length - 1)
-  amigosSorteados.push([amigoCurrent, amigos[indexToGift] ? amigos[indexToGift] : primerAmigo])
-  if (amigos.length === 0) return amigosSorteados
-
-  amigoCurrent = amigos[indexToGift]
-  removeItem(amigos, indexToGift)
-  indexToGift = getRandomInt(0, amigos.length - 1)
-  amigosSorteados.push([amigoCurrent, amigos[indexToGift] ? amigos[indexToGift] : primerAmigo])
-  if (amigos.length === 0) return amigosSorteados
-
-  amigoCurrent = amigos[indexToGift]
-  removeItem(amigos, indexToGift)
-  indexToGift = getRandomInt(0, amigos.length - 1)
-  amigosSorteados.push([amigoCurrent, amigos[indexToGift] ? amigos[indexToGift] : primerAmigo])
-  if (amigos.length === 0) return amigosSorteados
+  // Realizar sort
+  while (users.length) {
+    let currentFriend = users[index]
+    removeItem(users, index)
+    index = getRandomInt(0, users.length - 1)
+    sortedFriends.push([currentFriend, users[index] || firstFriend])
+  }
+  return sortedFriends;
 }
