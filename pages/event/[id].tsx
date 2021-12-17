@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 import { IUser, IWishList } from '../../app/interfaces'
 import CreateWhishlist from '../../components/CreateWishlist'
 import ListUser from '../../components/ListUser'
-import ListWishlist from '../../components/ListWishlist'
+import ListWishlist from '../../components/ListWishlist/ListWishlist'
 import SelectedUser from '../../components/SelectedUser'
 
 export async function getStaticPaths() {

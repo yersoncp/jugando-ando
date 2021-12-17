@@ -1,7 +1,8 @@
-import { IUser, IWishList } from '../app/interfaces';
-import { FC } from 'react';
-import { groupByKey } from '../app/utils/utils';
-import firebase from '../app/firebase'
+import { IUser, IWishList } from '../../app/interfaces'
+import { FC } from 'react'
+import { groupByKey } from '../../app/utils/utils'
+import firebase from '../../app/firebase'
+import s from './ListWishlist.module.css'
 
 type IProps = {
   whislist: IWishList[],
@@ -32,9 +33,12 @@ const ListWishlist: FC<IProps> = ({ whislist, id, user }) => {
                 {
                   myWishlist.map((w: IWishList) => <li className="list-wishlist__item" key={w.id}>
                     <span className="whislist-item-name">{w.description}</span>
-                    <span>
-                      <button onClick={() => handleDeleteWishlist(w.id)}>X</button>
-                    </span>
+                    {
+                      w.email === user.email &&
+                      <button className={s.buttonDelete} onClick={() => handleDeleteWishlist(w.id)}>
+                        x
+                      </button>
+                    }
                   </li>)
                 }
               </ul>
