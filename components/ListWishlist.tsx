@@ -1,13 +1,20 @@
-import { IWishList } from '../app/interfaces';
+import { IUser, IWishList } from '../app/interfaces';
 import { FC } from 'react';
 import { groupByKey } from '../app/utils/utils';
+import firebase from '../app/firebase'
 
 type IProps = {
   whislist: IWishList[],
+  id: string,
+  user: IUser
 }
 
-const ListWishlist: FC<IProps> = ({ whislist }) => {
+const ListWishlist: FC<IProps> = ({ whislist, id, user }) => {
   const wishlistGroup = groupByKey(whislist, 'name')
+  const handleDeleteWishlist = (wishlistId: string) => {
+    firebase.database().ref(`events/${id}/wishList/${wishlistId}`).remove()
+  }
+
   return <>
     <div className="list-wishlist">
       <div className="list-wishlist__title">
@@ -23,8 +30,11 @@ const ListWishlist: FC<IProps> = ({ whislist }) => {
               </div>
               <ul className='list-wishlist__group-list'>
                 {
-                  myWishlist.map((w: IWishList, i: string) => <li className="list-wishlist__item" key={w.id}>
+                  myWishlist.map((w: IWishList) => <li className="list-wishlist__item" key={w.id}>
                     <span className="whislist-item-name">{w.description}</span>
+                    <span>
+                      <button onClick={() => handleDeleteWishlist(w.id)}>X</button>
+                    </span>
                   </li>)
                 }
               </ul>

@@ -65,7 +65,7 @@ const Id = ({ id }: InferGetStaticPropsType<typeof getStaticProps>) => {
             <>
               <h2>Hola {user.name} 👋</h2>
               <CreateWhishlist user={user} id={id} />
-              <ListWishlist whislist={whislist} />
+              <ListWishlist user={user} id={id} whislist={whislist} />
             </>
           ) : (
             <SelectedUser onClick={selectUser} />
